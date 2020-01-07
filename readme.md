@@ -2,6 +2,11 @@ ZJsBridge
 ===
 > 一套完整的native-bridge-web协议与实现，清晰规范的开发Hybrid App
 
+[![](https://jitpack.io/v/hcanyz/ZJsBridge.svg)](https://jitpack.io/#hcanyz/ZJsBridge)
+
+Support API v19+
+Support androidx
+
 [zfjs-sdk项目](https://github.com/hcanyz/ZJsBridge-ZJs)
 
 ## ZJsBridge能做什么
