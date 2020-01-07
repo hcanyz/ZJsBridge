@@ -4,7 +4,7 @@ ZJsBridge
 
 [![](https://jitpack.io/v/hcanyz/ZJsBridge.svg)](https://jitpack.io/#hcanyz/ZJsBridge)
 
-Support **API v14+**  
+Support **API v19+**  
 Support **androidx**
 
 [zfjs-sdk项目](https://github.com/hcanyz/ZJsBridge-ZJs)
