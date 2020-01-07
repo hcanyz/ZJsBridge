@@ -1,0 +1,4 @@
+include ':app'
+include ':ZJsBridge'
+include ':ZJsBridge-JsHandlerImpl-Image'
+

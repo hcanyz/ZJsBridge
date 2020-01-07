@@ -1,0 +1,15 @@
+apply plugin: 'com.android.library'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android deps.gradleConfig.simpleAndroid(project)
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':ZJsBridge')
+
+    compileOnly deps.android.appcompat
+}

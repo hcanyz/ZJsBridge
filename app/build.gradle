@@ -1,0 +1,34 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android deps.gradleConfig.simpleAndroid(project)
+
+android {
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':ZJsBridge')
+
+    implementation project(':ZJsBridge-JsHandlerImpl-Image')
+
+    implementation deps.android.recyclerview
+    implementation deps.android.appcompat
+    implementation deps.android.constraintLayout
+    implementation deps.android.lifecycleextensions
+
+    implementation deps.third.x5webview
+
+    implementation deps.kotlin.stdLib
+    implementation deps.kotlin.reflect
+}

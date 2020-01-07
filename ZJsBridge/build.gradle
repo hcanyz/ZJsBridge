@@ -1,0 +1,22 @@
+apply plugin: 'com.android.library'
+
+apply plugin: 'com.github.dcendents.android-maven'
+group = 'com.github.hcanyz'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android deps.gradleConfig.simpleAndroid(project)
+
+android {
+    defaultConfig {
+        minSdkVersion 19
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    compileOnly deps.android.appcompat
+}
