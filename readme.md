@@ -142,8 +142,8 @@ override fun onBackPressed() {
 ```
 
 ## web测试工程
-app module中已集成一个打包后的项目，可以替换为
-https://github.com/hcanyz/ZJsBridge-ZJs/test/zfjs-test/README.md
+app module中已集成一个打包后的项目，可以替换为  
+https://github.com/hcanyz/ZJsBridge-ZJs/blob/master/test/zfjs-test/README.md
 
 ## [zfjs-sdk-api](./readme-jssdk-api.md#zfjs-sdk说明文档)
 
