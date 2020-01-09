@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.hcanyz.zjsbridge.ZJsBridge
 import com.hcanyz.zjsbridge.bridge.JsCallBacker
+import com.hcanyz.zjsbridge.bridge.JsEventer
 import com.hcanyz.zjsbridge.handler.IJsApiHandler
 import com.hcanyz.zjsbridge.util.ZUtils
 import java.io.File
@@ -143,4 +144,6 @@ class ZWebHelper(private val izWebView: IZWebView) {
     }
 
     data class ZWebResourceResponse(val mimeType: String?, val data: InputStream)
+
+    val jsEventer: JsEventer by lazy { JsEventer(izWebView) }
 }

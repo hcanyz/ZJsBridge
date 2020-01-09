@@ -30,6 +30,16 @@ class TestWebViewActivity : AppCompatActivity(), IZWebViewContainer {
         tv_test_tile.text = title
     }
 
+    override fun onResume() {
+        super.onResume()
+        web_test.getCurZWebHelper().jsEventer.event("onContainerResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        web_test.getCurZWebHelper().jsEventer.event("onContainerPause")
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         web_test.getCurZWebHelper().dispatchContainerResult(requestCode, resultCode, data)

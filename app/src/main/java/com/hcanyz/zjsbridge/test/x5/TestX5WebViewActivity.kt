@@ -9,8 +9,6 @@ import com.hcanyz.zjsbridge.handler.CommonJsHandler
 import com.hcanyz.zjsbridge.jshandlerimpl.image.ImageJsHandler
 import com.hcanyz.zjsbridge.test.R
 import kotlinx.android.synthetic.main.activity_test_x5_web_view.*
-import kotlinx.android.synthetic.main.activity_test_x5_web_view.tv_test_tile
-import kotlinx.android.synthetic.main.fragmenttest_web_view.*
 
 class TestX5WebViewActivity : AppCompatActivity(), IZWebViewContainer {
 
@@ -23,6 +21,16 @@ class TestX5WebViewActivity : AppCompatActivity(), IZWebViewContainer {
 
         x5web_test.getCurZWebHelper().registeredJsApiHandler(this, CommonJsHandler())
         x5web_test.getCurZWebHelper().registeredJsApiHandler(this, ImageJsHandler::class.java)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        x5web_test.getCurZWebHelper().jsEventer.event("onContainerResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        x5web_test.getCurZWebHelper().jsEventer.event("onContainerPause")
     }
 
     override fun closeWindow() {

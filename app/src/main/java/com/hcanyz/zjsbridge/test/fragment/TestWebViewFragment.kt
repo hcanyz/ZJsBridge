@@ -38,6 +38,16 @@ class TestWebViewFragment : Fragment(), IZWebViewContainer {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        web_test.getCurZWebHelper().jsEventer.event("onContainerResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        web_test.getCurZWebHelper().jsEventer.event("onContainerPause")
+    }
+
     override fun closeWindow() {
         requireActivity().finish()
     }
