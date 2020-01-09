@@ -19,6 +19,16 @@
     ```
 Native每次收到请求都需要校验数据一致性
 
+- _on 用于监听native发送的某些事件
+    数据结构：
+    ```
+    _on({
+        jsonMessage:"{
+            eventName:""
+        }",
+        shaKey:"" // sha1(jsonMessage+_dgtVerifyRandomStr)
+    })
+    ```
 
 ## Native->Bridge
 - _handleMessageFromZF 用于Native传递数据给Bridge
@@ -29,7 +39,7 @@ Native每次收到请求都需要校验数据一致性
         //android与js平台的json实现有略微区别，需要base64编码保证数据一致
         jsonMessage:Base64.encodeToString("{
             msgType:""       //callback | event
-            callbackId:""    //msgType==callback必传，_sendMessage里面
+            callbackId:""    //msgType==callback必传，在_sendMessage获得
             eventName:""     //msgType==event必传，表示触发什么事件
 
             params:{           //调用参数,json
@@ -66,3 +76,6 @@ Native每次收到请求都需要校验数据一致性
 
 - 已有event列表
 
+    - onContainerResume 容器变化到前台
+    
+    - onContainerPause 容器变化到后台

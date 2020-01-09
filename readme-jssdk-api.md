@@ -16,6 +16,7 @@
 
 [2.1 check](#check)
 
+[2.2 容器后台前台切换](#容器后台前台切换)
 
 [3 工具类接口](#工具类接口)
 
@@ -102,6 +103,16 @@ let vCode = match && match[1]
 ## 基础接口
 
 #### **check**
+
+#### **容器后台前台切换**
+```
+window.zfApi.onContainerResume(ret => {
+    console.log(`onContainerResume ${JSON.stringify(ret)}`);
+});
+window.zfApi.onContainerPause(ret => {
+    console.log(`onContainerPause ${JSON.stringify(ret)}`);
+});
+```
 
 ## 工具类接口
 
