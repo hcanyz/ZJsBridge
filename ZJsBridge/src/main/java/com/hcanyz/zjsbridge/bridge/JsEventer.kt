@@ -31,7 +31,7 @@ class JsEventer(private val izWebView: IZWebView) {
 
         val toBridgeRet = JSONObject()
         toBridgeRet.put("jsonMessage", jsonMessageBase64)
-        //生成签名文件
+        //生成签名
         toBridgeRet.put("shaKey", shaKey)
 
         izWebView.execJs("zfJSBridge._handleMessageFromZF", toBridgeRet.toString(), valueCallback)

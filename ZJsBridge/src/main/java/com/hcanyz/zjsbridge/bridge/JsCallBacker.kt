@@ -59,7 +59,7 @@ class JsCallBacker(private val bridgeMessage: BridgeMessage, private val izWebVi
 
                 val toBridgeRet = JSONObject()
                 toBridgeRet.put("jsonMessage", jsonMessageBase64)
-                //生成签名文件
+                //生成签名
                 toBridgeRet.put("shaKey", shaKey)
 
                 izWebView.execJs("zfJSBridge._handleMessageFromZF", toBridgeRet.toString(), null)
