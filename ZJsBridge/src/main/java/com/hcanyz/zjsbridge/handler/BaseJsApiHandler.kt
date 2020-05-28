@@ -13,13 +13,13 @@ abstract class BaseJsApiHandler : IJsApiHandler {
     private var fragmentWR: WeakReference<Fragment?>? = null
     private var containerWR: WeakReference<IZWebViewContainer>? = null
 
-    override fun attachContainer(activity: FragmentActivity) {
+    override fun onAttachContainer(activity: FragmentActivity) {
         activityWR = WeakReference(activity)
         check(activity is IZWebViewContainer) { "activity Must implement IZWebViewContainer" }
         containerWR = WeakReference(activity)
     }
 
-    override fun attachContainer(fragment: Fragment) {
+    override fun onAttachContainer(fragment: Fragment) {
         activityWR = WeakReference(fragment.requireActivity())
         fragmentWR = WeakReference(fragment)
         check(fragment is IZWebViewContainer) { "fragment Must implement IZWebViewContainer" }

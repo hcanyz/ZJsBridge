@@ -10,9 +10,9 @@ interface IJsApiHandler {
 
     fun handleApi(apiName: String, params: String, jsCallBacker: JsCallBacker): Boolean
 
-    fun attachContainer(activity: FragmentActivity)
+    fun onAttachContainer(activity: FragmentActivity)
 
-    fun attachContainer(fragment: Fragment)
+    fun onAttachContainer(fragment: Fragment)
 
     fun onContainerResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
         return false

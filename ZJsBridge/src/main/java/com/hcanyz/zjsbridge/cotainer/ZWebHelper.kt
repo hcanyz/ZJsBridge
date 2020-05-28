@@ -85,23 +85,23 @@ class ZWebHelper(private val izWebView: IZWebView) {
 
     fun registeredJsApiHandler(fragment: Fragment, clazz: Class<out IJsApiHandler>) {
         val jsApiHandler = clazz.newInstance()
-        jsApiHandler.attachContainer(fragment)
+        jsApiHandler.onAttachContainer(fragment)
         apiHandlers.add(jsApiHandler)
     }
 
     fun registeredJsApiHandler(fragment: Fragment, jsApiHandler: IJsApiHandler) {
-        jsApiHandler.attachContainer(fragment)
+        jsApiHandler.onAttachContainer(fragment)
         apiHandlers.add(jsApiHandler)
     }
 
     fun registeredJsApiHandler(fragmentActivity: FragmentActivity, clazz: Class<out IJsApiHandler>) {
         val jsApiHandler = clazz.newInstance()
-        jsApiHandler.attachContainer(fragmentActivity)
+        jsApiHandler.onAttachContainer(fragmentActivity)
         apiHandlers.add(jsApiHandler)
     }
 
     fun registeredJsApiHandler(fragmentActivity: FragmentActivity, jsApiHandler: IJsApiHandler) {
-        jsApiHandler.attachContainer(fragmentActivity)
+        jsApiHandler.onAttachContainer(fragmentActivity)
         apiHandlers.add(jsApiHandler)
     }
 
