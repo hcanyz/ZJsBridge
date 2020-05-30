@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.hcanyz.zjsbridge.cotainer.IZWebViewContainer
-import com.hcanyz.zjsbridge.handler.CommonJsHandler
+import com.hcanyz.zjsbridge.handler.ZCommonJsHandler
 import com.hcanyz.zjsbridge.jshandlerimpl.image.ImageJsHandler
 import com.hcanyz.zjsbridge.test.R
 import kotlinx.android.synthetic.main.activity_test_x5_web_view.*
@@ -19,7 +19,7 @@ class TestX5WebViewActivity : AppCompatActivity(), IZWebViewContainer {
 
         x5web_test.loadUrl("file:///android_asset/index.html")
 
-        x5web_test.getCurZWebHelper().registeredJsApiHandler(this, CommonJsHandler())
+        x5web_test.getCurZWebHelper().registeredJsApiHandler(this, ZCommonJsHandler())
         x5web_test.getCurZWebHelper().registeredJsApiHandler(this, ImageJsHandler::class.java)
     }
 

@@ -1,26 +1,32 @@
 ZJsBridge
 ===
-> 一套完整的native-bridge-web协议与实现，清晰规范的开发Hybrid App
+> 参考微信jsBridge的一套完整的native-bridge-web协议与实现，清晰规范的开发Hybrid App
 
 [![](https://jitpack.io/v/hcanyz/ZJsBridge.svg)](https://jitpack.io/#hcanyz/ZJsBridge)
 
 Support **API v19+**  
 Support **androidx**
 
-[zfjs-sdk项目](https://github.com/hcanyz/ZJsBridge-ZJs)
+[js实现: zfjs-sdk库](https://github.com/hcanyz/ZJsBridge-ZJs)
 
 ## ZJsBridge能做什么
-- 对web端提供完整的js-sdk，形成sdk版本概念
-- 对native提供jsapi组件化实现能力
-- 交互过程数据完整性校验
+- 对web端提供js-sdk，形成sdk概念，统一app对外api，统一的api管理（权限、版本兼容）
+- 让native端api具备组件化能力，不在需要将所有api写个一个modlue中
+- 保障native-web js交互的数据一致性、安全
 
 ## 什么场景下需要使用ZJsBridge
-- 较多的web与native交互，需要统一native对外api
-- native组件化，需要不能模块提供不同native api
+- 项目中有较多的web与native交互，需要native统一提供对外api
+- native组件化，需要在不同模块中实现api逻辑
 
-## 如何使用(详见demo)
+## [标准api：zfjs-sdk-api](./readme-jssdk-api.md#zfjs-sdk说明文档)
 
-添加依赖
+## [bridge协议：Native-Bridge协议](./readme-protocol.md#协议)
+
+## [虚拟资源协议：nativeResourceUrl协议](./readme-nativeResourceUrl.md#协议)
+
+## 如何使用((推荐)详见本项目demo)
+
+### 添加依赖
 ```groovy
 allprojects {
     repositories {
@@ -30,11 +36,18 @@ allprojects {
 }
 
 dependencies {
-    implementation 'com.github.hcanyz:ZJsBridge:1.0.0'
+    implementation 'com.github.hcanyz:ZJsBridge:$version'
 }
 ```
 
-WebView implements IZWebView
+#### 需要修改的类
+- Webview（android、x5...）
+- WebViewClient（添加一些方法调用，协助zjs感知webview生命周期）
+- activity|fragment
+    - 注册api实现类
+    - 添加一些方法，协助zjs感知容器生命周期
+
+##### WebView implements IZWebView
 ```kotlin
 class WebView : WebView, IZWebView {
     
@@ -78,12 +91,12 @@ class WebView : WebView, IZWebView {
 }
 ```
 
-初始化时 addJavascriptInterface
+##### Webview addJavascriptInterface
 ```kotlin
 addJavascriptInterface(ZJavascriptInterface(this), "__zf")
 ```
 
-添加一个WebViewClient
+##### WebViewClient
 ```kotlin
 private inner class InnerCustomWebViewClient : WebViewClient() {
     override fun onPageFinished(webView: WebView?, s: String?) {
@@ -106,13 +119,13 @@ private inner class InnerCustomWebViewClient : WebViewClient() {
 }
 ```
 
-activity|fragment容器 registeredJsApiHandler
+##### registeredJsApiHandler
 ```kotlin
-web_test.getCurZWebHelper().registeredJsApiHandler(this, CommonJsHandler::class.java)
+web_test.getCurZWebHelper().registeredJsApiHandler(this, ZCommonJsHandler::class.java)
 web_test.getCurZWebHelper().registeredJsApiHandler(this, ImageJsHandler::class.java)
 ```
 
-activity|fragment容器 implements IZWebViewContainer
+##### activity|fragment容器 implements IZWebViewContainer
 ```kotlin
 override fun closeWindow() {
     finish()
@@ -141,12 +154,8 @@ override fun onBackPressed() {
 }
 ```
 
-## web测试工程
-app module中已集成一个打包后的项目，可以替换为  
-https://github.com/hcanyz/ZJsBridge-ZJs/blob/master/test/zfjs-test/README.md
+## api测试
 
-## [zfjs-sdk-api](./readme-jssdk-api.md#zfjs-sdk说明文档)
+[这个库](https://github.com/hcanyz/ZJsBridge-ZJs/blob/master/test/zfjs-test/README.md)提供了一个h5的api测试页面
 
-## [Native-Bridge协议](./readme-protocol.md#协议)
-
-## [nativeResourceUrl协议](./readme-nativeResourceUrl.md#协议)
+本项目中已集成一个打包后的产物，可以自行编译替换（ZJsBridge\app\src\main\assets）

@@ -8,13 +8,13 @@ import org.json.JSONObject
 import java.lang.ref.WeakReference
 
 
-class JsCallBacker(private val bridgeMessage: BridgeMessage, private val izWebView: WeakReference<IZWebView>) {
+class ZJsCallBacker(private val bridgeMessage: ZBridgeMessage, private val izWebView: WeakReference<IZWebView>) {
 
     companion object {
         const val CODE_SUCCESS = 0   //成功
         const val CODE_ERR_CANCEL = 1  //取消操作
-        const val CODE_ERR_INVALID = 2  //无效的请求参数
         const val CODE_ERR_FAIL = 3 //未知错误
+        const val CODE_ERR_INVALID = 400  //无效的请求参数
         const val CODE_ERR_FORBIDDEN = 403 //没有该方法的调用权限
         const val CODE_ERR_404 = 404  //请求的方法或者事件名没有找到
     }
@@ -59,7 +59,6 @@ class JsCallBacker(private val bridgeMessage: BridgeMessage, private val izWebVi
 
                 val toBridgeRet = JSONObject()
                 toBridgeRet.put("jsonMessage", jsonMessageBase64)
-                //生成签名
                 toBridgeRet.put("shaKey", shaKey)
 
                 izWebView.execJs("zfJSBridge._handleMessageFromZF", toBridgeRet.toString(), null)

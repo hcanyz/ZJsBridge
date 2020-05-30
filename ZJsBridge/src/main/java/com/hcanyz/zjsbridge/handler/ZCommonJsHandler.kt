@@ -1,11 +1,11 @@
 package com.hcanyz.zjsbridge.handler
 
-import com.hcanyz.zjsbridge.bridge.JsCallBacker
+import com.hcanyz.zjsbridge.bridge.ZJsCallBacker
 import com.hcanyz.zjsbridge.cotainer.IZWebViewContainer
 
-class CommonJsHandler : BaseJsApiHandler() {
+class ZCommonJsHandler : ZBaseJsApiHandler() {
 
-    override fun handleApi(apiName: String, params: String, jsCallBacker: JsCallBacker): Boolean {
+    override fun handleApi(apiName: String, params: String, jsCallBacker: ZJsCallBacker): Boolean {
         when (apiName) {
             "closeWindow" -> {
                 getContainerOp<IZWebViewContainer>()?.closeWindow()

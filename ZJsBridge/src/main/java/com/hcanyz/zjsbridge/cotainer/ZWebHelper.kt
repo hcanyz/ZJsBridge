@@ -7,9 +7,9 @@ import android.webkit.ValueCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.hcanyz.zjsbridge.ZJsBridge
-import com.hcanyz.zjsbridge.bridge.JsCallBacker
-import com.hcanyz.zjsbridge.bridge.JsEventer
-import com.hcanyz.zjsbridge.handler.IJsApiHandler
+import com.hcanyz.zjsbridge.bridge.ZJsCallBacker
+import com.hcanyz.zjsbridge.bridge.ZJsEventer
+import com.hcanyz.zjsbridge.handler.IZJsApiHandler
 import com.hcanyz.zjsbridge.util.ZUtils
 import java.io.File
 import java.io.FileInputStream
@@ -48,29 +48,26 @@ class ZWebHelper(private val izWebView: IZWebView) {
                 })
     }
 
-    private val apiHandlers: MutableSet<IJsApiHandler> by lazy { hashSetOf<IJsApiHandler>() }
+    private val apiHandlers: MutableSet<IZJsApiHandler> by lazy { hashSetOf<IZJsApiHandler>() }
 
-    fun dispatchExeApi(apiName: String, params: String, jsCallBacker: JsCallBacker) {
+    fun dispatchExeApi(apiName: String, params: String, zJsCallBacker: ZJsCallBacker) {
         izWebView.runOnMainThread(Runnable {
             try {
                 for (handler in apiHandlers) {
-                    //  如果该对象消耗了事件传递处理，这里停止继续传递
-                    if (handler.handleApi(apiName, params, jsCallBacker)) {
+                    if (handler.handleApi(apiName, params, zJsCallBacker)) {
                         return@Runnable
                     }
                 }
             } catch (e: Exception) {
-                jsCallBacker.fail(JsCallBacker.CODE_ERR_FAIL, e.toString())
+                zJsCallBacker.fail(ZJsCallBacker.CODE_ERR_FAIL, e.toString())
                 return@Runnable
             }
-            //如果所有的方法都没有，则返回404处理
-            jsCallBacker.fail(JsCallBacker.CODE_ERR_404, "")
+            zJsCallBacker.fail(ZJsCallBacker.CODE_ERR_404, "")
         })
     }
 
     fun dispatchContainerResult(requestCode: Int, resultCode: Int, data: Intent?) {
         for (handler in apiHandlers) {
-            //  如果该对象消耗了事件传递处理，这里停止继续传递
             if (handler.onContainerResult(requestCode, resultCode, data)) {
                 return
             }
@@ -83,24 +80,24 @@ class ZWebHelper(private val izWebView: IZWebView) {
         }
     }
 
-    fun registeredJsApiHandler(fragment: Fragment, clazz: Class<out IJsApiHandler>) {
+    fun registeredJsApiHandler(fragment: Fragment, clazz: Class<out IZJsApiHandler>) {
         val jsApiHandler = clazz.newInstance()
         jsApiHandler.onAttachContainer(fragment)
         apiHandlers.add(jsApiHandler)
     }
 
-    fun registeredJsApiHandler(fragment: Fragment, jsApiHandler: IJsApiHandler) {
+    fun registeredJsApiHandler(fragment: Fragment, jsApiHandler: IZJsApiHandler) {
         jsApiHandler.onAttachContainer(fragment)
         apiHandlers.add(jsApiHandler)
     }
 
-    fun registeredJsApiHandler(fragmentActivity: FragmentActivity, clazz: Class<out IJsApiHandler>) {
+    fun registeredJsApiHandler(fragmentActivity: FragmentActivity, clazz: Class<out IZJsApiHandler>) {
         val jsApiHandler = clazz.newInstance()
         jsApiHandler.onAttachContainer(fragmentActivity)
         apiHandlers.add(jsApiHandler)
     }
 
-    fun registeredJsApiHandler(fragmentActivity: FragmentActivity, jsApiHandler: IJsApiHandler) {
+    fun registeredJsApiHandler(fragmentActivity: FragmentActivity, jsApiHandler: IZJsApiHandler) {
         jsApiHandler.onAttachContainer(fragmentActivity)
         apiHandlers.add(jsApiHandler)
     }
@@ -145,5 +142,5 @@ class ZWebHelper(private val izWebView: IZWebView) {
 
     data class ZWebResourceResponse(val mimeType: String?, val data: InputStream)
 
-    val jsEventer: JsEventer by lazy { JsEventer(izWebView) }
+    val jsEventer: ZJsEventer by lazy { ZJsEventer(izWebView) }
 }

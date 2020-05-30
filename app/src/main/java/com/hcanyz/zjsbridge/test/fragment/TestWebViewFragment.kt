@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.hcanyz.zjsbridge.cotainer.IZWebViewContainer
-import com.hcanyz.zjsbridge.handler.CommonJsHandler
+import com.hcanyz.zjsbridge.handler.ZCommonJsHandler
 import com.hcanyz.zjsbridge.jshandlerimpl.image.ImageJsHandler
 import com.hcanyz.zjsbridge.test.R
 import kotlinx.android.synthetic.main.fragmenttest_web_view.*
@@ -24,7 +24,7 @@ class TestWebViewFragment : Fragment(), IZWebViewContainer {
 
         web_test.loadUrl("file:///android_asset/index.html")
 
-        web_test.getCurZWebHelper().registeredJsApiHandler(this, CommonJsHandler::class.java)
+        web_test.getCurZWebHelper().registeredJsApiHandler(this, ZCommonJsHandler::class.java)
         web_test.getCurZWebHelper().registeredJsApiHandler(this, ImageJsHandler::class.java)
 
         requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
@@ -58,13 +58,11 @@ class TestWebViewFragment : Fragment(), IZWebViewContainer {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        //处理startActivityForResult返回值到每个JsApiHandler
         web_test.getCurZWebHelper().dispatchContainerResult(requestCode, resultCode, data)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        //处每个JsApiHandler处理界面销毁
         web_test.getCurZWebHelper().dispatchContainerDestroy()
     }
 }

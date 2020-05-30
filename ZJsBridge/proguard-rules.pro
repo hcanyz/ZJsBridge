@@ -21,4 +21,5 @@
 #-renamesourcefileattribute SourceFile
 
 
--keep com.hcanyz.zjsbridge.bridge.BridgeMessage.** {*;}
+-keep com.hcanyz.zjsbridge.bridge.ZBridgeMessage.** {*;}
+-keep com.hcanyz.zjsbridge.bridge.ZJavascriptInterface.** {*;}

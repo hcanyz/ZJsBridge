@@ -3,11 +3,11 @@ package com.hcanyz.zjsbridge.handler
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import com.hcanyz.zjsbridge.bridge.JsCallBacker
+import com.hcanyz.zjsbridge.bridge.ZJsCallBacker
 import com.hcanyz.zjsbridge.cotainer.IZWebViewContainer
 import java.lang.ref.WeakReference
 
-abstract class BaseJsApiHandler : IJsApiHandler {
+abstract class ZBaseJsApiHandler : IZJsApiHandler {
 
     private var activityWR: WeakReference<FragmentActivity>? = null
     private var fragmentWR: WeakReference<Fragment?>? = null
@@ -39,21 +39,21 @@ abstract class BaseJsApiHandler : IJsApiHandler {
         return containerWR?.get() as T?
     }
 
-    private val jsCallBackerMap: MutableMap<String, JsCallBacker> by lazy {
-        mutableMapOf<String, JsCallBacker>()
+    private val zJsCallBackerMap: MutableMap<String, ZJsCallBacker> by lazy {
+        mutableMapOf<String, ZJsCallBacker>()
     }
 
-    fun saveJsCallBacker(key: String, jsCallBacker: JsCallBacker) {
-        jsCallBackerMap[key] = jsCallBacker
+    fun saveJsCallBacker(key: String, ZJsCallBacker: ZJsCallBacker) {
+        zJsCallBackerMap[key] = ZJsCallBacker
     }
 
-    fun get7RemoveJsCallBacker(key: String): JsCallBacker? {
-        return jsCallBackerMap.remove(key)
+    fun get7RemoveJsCallBacker(key: String): ZJsCallBacker? {
+        return zJsCallBackerMap.remove(key)
     }
 
     @CallSuper
     override fun onContainerDestroy() {
-        jsCallBackerMap.clear()
+        zJsCallBackerMap.clear()
     }
 
     override fun equals(other: Any?): Boolean {

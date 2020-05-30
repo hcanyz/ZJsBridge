@@ -5,20 +5,20 @@ import android.content.Intent
 import android.provider.MediaStore
 import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
-import com.hcanyz.zjsbridge.bridge.JsCallBacker
-import com.hcanyz.zjsbridge.handler.BaseJsApiHandler
+import com.hcanyz.zjsbridge.bridge.ZJsCallBacker
+import com.hcanyz.zjsbridge.handler.ZBaseJsApiHandler
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
 
 
-class ImageJsHandler : BaseJsApiHandler() {
+class ImageJsHandler : ZBaseJsApiHandler() {
 
     companion object {
         const val REQUEST_ALBUM = 10000
     }
 
-    override fun handleApi(apiName: String, params: String, jsCallBacker: JsCallBacker): Boolean {
+    override fun handleApi(apiName: String, params: String, jsCallBacker: ZJsCallBacker): Boolean {
         when (apiName) {
             "choosePhotos" -> {
                 val activity = getActivity() ?: return true
@@ -51,7 +51,7 @@ class ImageJsHandler : BaseJsApiHandler() {
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                     activity.startActivity(intent)
                 } catch (e: Exception) {
-                    jsCallBacker.fail(JsCallBacker.CODE_ERR_FAIL, e.toString())
+                    jsCallBacker.fail(ZJsCallBacker.CODE_ERR_FAIL, e.toString())
                 }
                 return true
             }

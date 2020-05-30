@@ -6,7 +6,7 @@ import com.hcanyz.zjsbridge.util.ZUtils
 import org.json.JSONArray
 import org.json.JSONObject
 
-class JsEventer(private val izWebView: IZWebView) {
+class ZJsEventer(private val izWebView: IZWebView) {
 
     fun event(eventName: String, jsonObject: JSONObject = JSONObject(), valueCallback: ValueCallback<String>? = null) {
         doHandle(eventName, jsonObject, valueCallback)
@@ -31,7 +31,6 @@ class JsEventer(private val izWebView: IZWebView) {
 
         val toBridgeRet = JSONObject()
         toBridgeRet.put("jsonMessage", jsonMessageBase64)
-        //生成签名
         toBridgeRet.put("shaKey", shaKey)
 
         izWebView.execJs("zfJSBridge._handleMessageFromZF", toBridgeRet.toString(), valueCallback)

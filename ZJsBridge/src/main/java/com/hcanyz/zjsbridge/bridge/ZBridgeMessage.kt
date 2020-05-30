@@ -4,7 +4,7 @@ import com.hcanyz.zjsbridge.ZJsBridge
 import com.hcanyz.zjsbridge.util.ZUtils
 import org.json.JSONObject
 
-data class BridgeMessage(
+data class ZBridgeMessage(
         var apiName: String,
         var params: String,
         var callbackId: String,
@@ -18,7 +18,7 @@ data class BridgeMessage(
          * @param dgtVerifyRandomStr String 加密密钥
          * @return BridgeMessage
          */
-        fun parse7Check(msg: String, dgtVerifyRandomStr: String): BridgeMessage {
+        fun parse7Check(msg: String, dgtVerifyRandomStr: String): ZBridgeMessage {
             try {
                 val msgJson = JSONObject(msg)
                 val jsonMessage = msgJson.optString("jsonMessage")
@@ -38,7 +38,7 @@ data class BridgeMessage(
                 val callbackId = jsonMessageJson.optString("callbackId")
                 requireNotNull(callbackId) { "error callbackId" }
 
-                //可能是 ""，表示当前api请求携带数据
+                //可能是 ""，当前api请求携带数据
                 val params = jsonMessageJson.optString("params", "")
                 requireNotNull(params) { "error params" }
 
@@ -46,7 +46,7 @@ data class BridgeMessage(
                 val msgType = jsonMessageJson.optString("msgType", "call")
                 requireNotNull(msgType) { "error msgType" }
 
-                return BridgeMessage(apiName, params, callbackId, msgType)
+                return ZBridgeMessage(apiName, params, callbackId, msgType)
             } catch (e: Exception) {
                 if (ZJsBridge.ZJS_DEBUG) ZJsBridge.log("JsSendMessage parse7Check null $msg \ndgtVerifyRandomStr: $dgtVerifyRandomStr \n e:$e")
                 throw e
