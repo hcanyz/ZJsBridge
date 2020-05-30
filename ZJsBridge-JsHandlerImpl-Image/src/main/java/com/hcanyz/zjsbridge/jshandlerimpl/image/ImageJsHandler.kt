@@ -44,7 +44,7 @@ class ImageJsHandler : ZBaseJsApiHandler() {
                     val intent = Intent(Intent.ACTION_VIEW)
 
                     //找回真实路径
-                    val filePath = jsCallBacker.getVirtualKeyRealPath(urls.getString(0))
+                    val filePath = jsCallBacker.getVirtualKeyRealPath(urls.getString(index))
 
                     val uri = FileProvider.getUriForFile(activity, activity.applicationContext.packageName + ".provider", File(filePath))
                     intent.setDataAndType(uri, MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(filePath)))
