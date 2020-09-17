@@ -20,7 +20,7 @@ class ChromiumWebView : WebView, IZWebView {
 
     init {
         val settings = settings
-        @Suppress("DEPRECATION")
+        @Suppress("SetJavaScriptEnabled")
         settings.javaScriptEnabled = true
 
         settings.userAgentString = settings.userAgentString + " zfjs/1.0.0"
