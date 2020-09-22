@@ -36,7 +36,8 @@ class ZWebHelper(private val izWebView: IZWebView) {
         val readLines = InputStreamReader(izWebView.getCurContext().assets.open("jsapi/zfjs.js")).readLines()
         val js = StringBuilder()
         readLines.fold(js, { acc, s ->
-            acc.append(s.replace("\${_dgtVerifyRandomStr}", dgtVerifyRandomStr)).append("\n")
+            acc.append(s.replace("\${_dgtVerifyRandomStr}", dgtVerifyRandomStr)
+                    .replace("\${_debugLevel}", if (ZJsBridge.ZJS_DEBUG) "0" else "2")).append("\n")
         })
         js.toString()
     }
@@ -105,8 +106,10 @@ class ZWebHelper(private val izWebView: IZWebView) {
     /**
      * 用于存储一个真实地址与虚拟路径的映射关系
      */
+    @Deprecated("use content://")
     private val nativeResourceVirtualKeyMap by lazy { mutableMapOf<String, String>() }
 
+    @Deprecated("use content://")
     fun createNativeResourceVirtualKey(nativeResource: String): String {
         val file = File(nativeResource)
         if (!file.exists() || !file.isFile) {
@@ -120,10 +123,12 @@ class ZWebHelper(private val izWebView: IZWebView) {
         return virtualKey
     }
 
+    @Deprecated("use content://")
     fun findVirtualKeyRealPath(virtualKey: String): String? {
         return nativeResourceVirtualKeyMap[virtualKey]
     }
 
+    @Deprecated("use content://")
     fun hookNativeResourceWithWebViewRequest(url: Uri): ZWebResourceResponse? {
         if (url.scheme == "zf" && url.host == "nativeResourceMap") {
             val nativeResource = nativeResourceVirtualKeyMap[url.toString()] ?: return null
@@ -140,6 +145,7 @@ class ZWebHelper(private val izWebView: IZWebView) {
         return null
     }
 
+    @Deprecated("use content://")
     data class ZWebResourceResponse(val mimeType: String?, val data: InputStream)
 
     val jsEventer: ZJsEventer by lazy { ZJsEventer(izWebView) }

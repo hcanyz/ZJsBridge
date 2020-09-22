@@ -7,6 +7,10 @@ import java.lang.ref.WeakReference
 
 class ZJavascriptInterface(private val qWebView: IZWebView) {
 
+    companion object {
+        const val INTERFACE_NAME = "__zf"
+    }
+
     //bridge层请求native api 参考readme-protocol.md
     @JavascriptInterface
     fun _sendMessage(msg: String?) {

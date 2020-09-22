@@ -1,7 +1,7 @@
 (function () {
     //--- util
 
-    var __DL = 0, __IL = 1, __EL = 2, __LogLvl = __DL
+    var __DL = 0, __IL = 1, __EL = 2, __LogLvl = parseInt("${_debugLevel}") || __DL
     var __LogArr = ["start"]
     function __Log(lvl) {
         __LogArr.push(arguments)

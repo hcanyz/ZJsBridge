@@ -3,7 +3,9 @@ package com.hcanyz.zjsbridge.test.fragment
 import android.content.Context
 import android.os.Looper
 import android.util.AttributeSet
-import android.webkit.*
+import android.webkit.ValueCallback
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import com.hcanyz.zjsbridge.ZJsBridge
 import com.hcanyz.zjsbridge.bridge.ZJavascriptInterface
 import com.hcanyz.zjsbridge.cotainer.IZWebView
@@ -29,7 +31,7 @@ class ChromiumWebView : WebView, IZWebView {
         webViewClient = InnerCustomWebViewClient()
 
         //注册bridge事件处理对象
-        addJavascriptInterface(ZJavascriptInterface(this), "__zf")
+        addJavascriptInterface(ZJavascriptInterface(this), ZJavascriptInterface.INTERFACE_NAME)
     }
 
     override fun getCurUrl(): String {
@@ -79,15 +81,6 @@ class ChromiumWebView : WebView, IZWebView {
             super.doUpdateVisitedHistory(p0, p1, p2)
             //注入js-bridge，可以多次调用，js-bridge有幂等处理
             zWebHelper.injectCoreJs()
-        }
-
-        override fun shouldInterceptRequest(view: WebView, request: WebResourceRequest): WebResourceResponse? {
-            //拦截虚拟路径请求，换成真实本地地址资源
-            val zWebResourceResponse = zWebHelper.hookNativeResourceWithWebViewRequest(request.url)
-            if (zWebResourceResponse != null) {
-                return WebResourceResponse(zWebResourceResponse.mimeType, "", zWebResourceResponse.data)
-            }
-            return super.shouldInterceptRequest(view, request)
         }
     }
 }

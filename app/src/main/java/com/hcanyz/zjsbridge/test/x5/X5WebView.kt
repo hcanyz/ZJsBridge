@@ -8,8 +8,6 @@ import com.hcanyz.zjsbridge.ZJsBridge
 import com.hcanyz.zjsbridge.bridge.ZJavascriptInterface
 import com.hcanyz.zjsbridge.cotainer.IZWebView
 import com.hcanyz.zjsbridge.cotainer.ZWebHelper
-import com.tencent.smtt.export.external.interfaces.WebResourceRequest
-import com.tencent.smtt.export.external.interfaces.WebResourceResponse
 import com.tencent.smtt.sdk.WebView
 import com.tencent.smtt.sdk.WebViewClient
 
@@ -33,7 +31,7 @@ class X5WebView : WebView, IZWebView {
 
         settings.userAgentString = settings.userAgentString + " zfjs/1.0.0"
 
-        addJavascriptInterface(ZJavascriptInterface(this), "__zf")
+        addJavascriptInterface(ZJavascriptInterface(this), ZJavascriptInterface.INTERFACE_NAME)
     }
 
     override fun getCurUrl(): String {
@@ -81,14 +79,6 @@ class X5WebView : WebView, IZWebView {
         override fun doUpdateVisitedHistory(p0: WebView?, p1: String?, p2: Boolean) {
             super.doUpdateVisitedHistory(p0, p1, p2)
             zWebHelper.injectCoreJs()
-        }
-
-        override fun shouldInterceptRequest(view: WebView, request: WebResourceRequest): WebResourceResponse? {
-            val zWebResourceResponse = zWebHelper.hookNativeResourceWithWebViewRequest(request.url)
-            if (zWebResourceResponse != null) {
-                return WebResourceResponse(zWebResourceResponse.mimeType, "", zWebResourceResponse.data)
-            }
-            return super.shouldInterceptRequest(view, request)
         }
     }
 }

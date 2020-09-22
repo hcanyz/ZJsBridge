@@ -22,7 +22,7 @@ Support **androidx**
 
 ## [bridge协议：Native-Bridge协议](./readme-protocol.md#协议)
 
-## [虚拟资源协议：nativeResourceUrl协议](./readme-nativeResourceUrl.md#协议)
+## ~~[虚拟资源协议：nativeResourceUrl协议](./readme-nativeResourceUrl.md#协议)~~
 
 ## 如何使用((推荐)详见本项目demo)
 
@@ -93,7 +93,7 @@ class WebView : WebView, IZWebView {
 
 ##### Webview addJavascriptInterface
 ```kotlin
-addJavascriptInterface(ZJavascriptInterface(this), "__zf")
+addJavascriptInterface(ZJavascriptInterface(this), ZJavascriptInterface.INTERFACE_NAME)
 ```
 
 ##### WebViewClient

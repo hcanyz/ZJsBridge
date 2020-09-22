@@ -6,8 +6,6 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.webkit.ValueCallback;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -46,7 +44,7 @@ public class ChromiumWebViewJava extends WebView implements IZWebView {
 
         setWebViewClient(new InnerCustomWebViewClient());
 
-        addJavascriptInterface(new ZJavascriptInterface(this), "__zf");
+        addJavascriptInterface(new ZJavascriptInterface(this), ZJavascriptInterface.INTERFACE_NAME);
     }
 
     private ZWebHelper zWebHelper = new ZWebHelper(this);
@@ -110,15 +108,6 @@ public class ChromiumWebViewJava extends WebView implements IZWebView {
         public void doUpdateVisitedHistory(WebView view, String url, boolean isReload) {
             super.doUpdateVisitedHistory(view, url, isReload);
             zWebHelper.injectCoreJs();
-        }
-
-        @Override
-        public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-            ZWebHelper.ZWebResourceResponse zWebResourceResponse = zWebHelper.hookNativeResourceWithWebViewRequest(request.getUrl());
-            if (zWebResourceResponse != null) {
-                return new WebResourceResponse(zWebResourceResponse.getMimeType(), "", zWebResourceResponse.getData());
-            }
-            return super.shouldInterceptRequest(view, request);
         }
     }
 }

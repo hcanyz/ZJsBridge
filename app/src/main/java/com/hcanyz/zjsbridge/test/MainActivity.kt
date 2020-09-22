@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         //init x5
         QbSdk.initX5Environment(application, null)
 
-        ZJsBridge.init(true)
+        ZJsBridge.init(debug = true)
 
         setContentView(R.layout.activity_main)
     }

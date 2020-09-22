@@ -68,11 +68,12 @@ class ZJsCallBacker(private val bridgeMessage: ZBridgeMessage, private val izWeb
         } ?: if (ZJsBridge.ZJS_DEBUG) ZJsBridge.log("$bridgeMessage izWebView recycle")
     }
 
-
+    @Deprecated("use content://")
     fun createNativeResourceVirtualKey(nativeResource: String): String? {
         return izWebView.get()?.getCurZWebHelper()?.createNativeResourceVirtualKey(nativeResource)
     }
 
+    @Deprecated("use content://")
     fun getVirtualKeyRealPath(virtualKey: String): String? {
         return izWebView.get()?.getCurZWebHelper()?.findVirtualKeyRealPath(virtualKey)
     }
