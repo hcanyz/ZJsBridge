@@ -108,14 +108,6 @@ private inner class InnerCustomWebViewClient : WebViewClient() {
         super.doUpdateVisitedHistory(p0, p1, p2)
         zWebHelper.injectCoreJs()
     }
-
-    override fun shouldInterceptRequest(view: WebView, request: WebResourceRequest): WebResourceResponse? {
-        val zWebResourceResponse = zWebHelper.hookNativeResourceWithWebViewRequest(request.url)
-        if (zWebResourceResponse != null) {
-            return WebResourceResponse(zWebResourceResponse.mimeType, "", zWebResourceResponse.data)
-        }
-        return super.shouldInterceptRequest(view, request)
-    }
 }
 ```
 
