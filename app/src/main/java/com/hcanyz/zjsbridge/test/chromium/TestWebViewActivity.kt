@@ -7,6 +7,7 @@ import com.hcanyz.zjsbridge.cotainer.IZWebViewContainer
 import com.hcanyz.zjsbridge.handler.ZCommonJsHandler
 import com.hcanyz.zjsbridge.jshandlerimpl.image.ImageJsHandler
 import com.hcanyz.zjsbridge.test.R
+import com.hcanyz.zjsbridge.test.test.TestJsHandler
 import kotlinx.android.synthetic.main.activity_test_web_view.*
 
 class TestWebViewActivity : AppCompatActivity(), IZWebViewContainer {
@@ -16,10 +17,11 @@ class TestWebViewActivity : AppCompatActivity(), IZWebViewContainer {
 
         setContentView(R.layout.activity_test_web_view)
 
-        web_test.loadUrl("file:///android_asset/index.html")
+        web_test.loadUrl("http://192.168.253.2:8080")
 
         web_test.getCurZWebHelper().registeredJsApiHandler(this, ZCommonJsHandler::class.java)
         web_test.getCurZWebHelper().registeredJsApiHandler(this, ImageJsHandler::class.java)
+        web_test.getCurZWebHelper().registeredJsApiHandler(this, TestJsHandler::class.java)
     }
 
     override fun closeWindow() {

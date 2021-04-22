@@ -47,7 +47,7 @@ public class ChromiumWebViewJava extends WebView implements IZWebView {
         addJavascriptInterface(new ZJavascriptInterface(this), ZJavascriptInterface.INTERFACE_NAME);
     }
 
-    private ZWebHelper zWebHelper = new ZWebHelper(this);
+    private final ZWebHelper zWebHelper = new ZWebHelper(this);
 
     @Override
     public void execJs(@NotNull String methodName, @Nullable String params, @Nullable ValueCallback<String> valueCallback) {
@@ -62,12 +62,7 @@ public class ChromiumWebViewJava extends WebView implements IZWebView {
 
     @Override
     public void execJs(@NotNull final String sourceJs, @Nullable final ValueCallback<String> valueCallback) {
-        runOnMainThread(new Runnable() {
-            @Override
-            public void run() {
-                evaluateJavascript(sourceJs, valueCallback);
-            }
-        });
+        runOnMainThread(() -> evaluateJavascript(sourceJs, valueCallback));
     }
 
     @Override

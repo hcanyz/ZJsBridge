@@ -32,7 +32,7 @@ class ZJsCallBacker(private val bridgeMessage: ZBridgeMessage, private val izWeb
         doHandle(resultObj = jsonObject)
     }
 
-    fun success(jsonObject: JSONObject) {
+    fun success(jsonObject: JSONObject = JSONObject()) {
         jsonObject.put("errCode", CODE_SUCCESS)
         doHandle(resultObj = jsonObject)
     }

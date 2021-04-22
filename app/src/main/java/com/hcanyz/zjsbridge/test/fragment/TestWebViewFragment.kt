@@ -11,6 +11,7 @@ import com.hcanyz.zjsbridge.cotainer.IZWebViewContainer
 import com.hcanyz.zjsbridge.handler.ZCommonJsHandler
 import com.hcanyz.zjsbridge.jshandlerimpl.image.ImageJsHandler
 import com.hcanyz.zjsbridge.test.R
+import com.hcanyz.zjsbridge.test.test.TestJsHandler
 import kotlinx.android.synthetic.main.fragmenttest_web_view.*
 
 class TestWebViewFragment : Fragment(), IZWebViewContainer {
@@ -26,6 +27,7 @@ class TestWebViewFragment : Fragment(), IZWebViewContainer {
 
         web_test.getCurZWebHelper().registeredJsApiHandler(this, ZCommonJsHandler::class.java)
         web_test.getCurZWebHelper().registeredJsApiHandler(this, ImageJsHandler::class.java)
+        web_test.getCurZWebHelper().registeredJsApiHandler(this, TestJsHandler::class.java)
 
         requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

@@ -247,6 +247,12 @@
         isIOS: function () {
             let reg = /iphone|ipad|ipod/i
             if (reg.test(window.navigator.userAgent)) { return true } else { return false }
+        },
+        b64DecodeUnicode: function (str) {
+            // Going backwards: from bytestream, to percent-encoding, to original string.
+            return decodeURIComponent(atob(str).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
         }
     }
 
@@ -337,7 +343,7 @@
 
         var msg = JSON.parse(msgStr)
 
-        var msgWrapStr = window.atob(msg[_JSON_MESSAGE])
+        var msgWrapStr = zfHelper.b64DecodeUnicode(msg[_JSON_MESSAGE])
         var msgWrap = JSON.parse(msgWrapStr)
         var shaStr = msg[_SHA_KEY]
         var arr = new Array
