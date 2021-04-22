@@ -17,7 +17,7 @@ class TestWebViewActivity : AppCompatActivity(), IZWebViewContainer {
 
         setContentView(R.layout.activity_test_web_view)
 
-        web_test.loadUrl("http://192.168.253.2:8080")
+        web_test.loadUrl("file:///android_asset/index.html")
 
         web_test.getCurZWebHelper().registeredJsApiHandler(this, ZCommonJsHandler::class.java)
         web_test.getCurZWebHelper().registeredJsApiHandler(this, ImageJsHandler::class.java)
